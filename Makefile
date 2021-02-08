@@ -1,7 +1,4 @@
 # dataStructures Makefile
-# TODO:
-## g++ create output directory if DNE
-## change from literal string ./tests.* to variable 
 
 # libs
 LIBS = gtest
@@ -30,7 +27,8 @@ CPP_LIB_SRC += $(realpath $(wildcard $(SRC_PATH)/*.cpp)) # match *.cpp
 
 BUILD_PATH = ./build
 TARGET = ./bin/tests
-GTEST_MAIN = ./tests.cpp
+main: GTEST_MAIN = ./main.cpp
+gtest: GTEST_MAIN = ./tests.cpp
 GTEST_OBJ = $(BUILD_PATH)/$(patsubst %.cpp,%.o,$(notdir $(GTEST_MAIN)))
 
 # create list of objects
@@ -40,7 +38,10 @@ OBJECTS = $(foreach obj,$(basename $(notdir $(CPP_LIB_SRC))), $(BUILD_PATH)/$(ob
 CREATE_DIRS = $(dir $(TARGET))
 CREATE_DIRS += $(BUILD_PATH)
 
-.PHONY: clean $(TARGET) $(CREATE_DIRS) $(OBJECTS) $(CPP_LIB_SRC)
+.PHONY: clean main $(TARGET) $(CREATE_DIRS) $(OBJECTS) $(CPP_LIB_SRC)
+
+main: $(TARGET)
+gtest: $(TARGET)
 
 $(TARGET): $(CREATE_DIRS) $(CPP_LIB_SRC)
 	# build main test object
