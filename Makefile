@@ -19,17 +19,17 @@ LDFLAGS += $(foreach name, $(LIBS), -l $(name))
 
 # libs
 LIB_PATH = ./lib
-CPP_LIB_SRC = $(realpath $(wildcard $(LIB_PATH)/*.cpp)) # match *.cpp
+CPP_LIB_SRC = $(realpath $(wildcard $(LIB_PATH)/*.cc)) # match *.cpp
 
 # gtest fixtures
 SRC_PATH = ./src
-CPP_LIB_SRC += $(realpath $(wildcard $(SRC_PATH)/*.cpp)) # match *.cpp
+CPP_LIB_SRC += $(realpath $(wildcard $(SRC_PATH)/*.cc)) # match *.cpp
 
 BUILD_PATH = ./build
 TARGET = ./bin/tests
-main: GTEST_MAIN = ./main.cpp
-gtest: GTEST_MAIN = ./tests.cpp
-GTEST_OBJ = $(BUILD_PATH)/$(patsubst %.cpp,%.o,$(notdir $(GTEST_MAIN)))
+main: GTEST_MAIN = ./main.cc
+gtest: GTEST_MAIN = ./tests.cc
+GTEST_OBJ = $(BUILD_PATH)/$(patsubst %.cc,%.o,$(notdir $(GTEST_MAIN)))
 
 # create list of objects
 OBJECTS = $(foreach obj,$(basename $(notdir $(CPP_LIB_SRC))), $(BUILD_PATH)/$(obj).o)
@@ -55,7 +55,7 @@ $(CREATE_DIRS):
 	mkdir -p $@
 
 $(CPP_LIB_SRC):
-	$(CC) $(CFLAGS) -c $@ -o $(BUILD_PATH)/$(patsubst %.cpp,%.o,$(notdir $@))
+	$(CC) $(CFLAGS) -c $@ -o $(BUILD_PATH)/$(patsubst %.cc,%.o,$(notdir $@))
 
 clean:
 	rm -r $(CREATE_DIRS)
