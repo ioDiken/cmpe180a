@@ -23,7 +23,9 @@ CPP_LIB_SRC = $(realpath $(wildcard $(LIB_PATH)/*.cc)) # match *.cpp
 
 # gtest fixtures
 SRC_PATH = ./src
+SRC_TESTS_PATH = $(SRC_PATH)/tests
 CPP_LIB_SRC += $(realpath $(wildcard $(SRC_PATH)/*.cc)) # match *.cpp
+CPP_LIB_SRC += $(realpath $(wildcard $(SRC_TESTS_PATH)/*.cc)) # match *.cpp
 
 BUILD_PATH = ./build
 TARGET = ./bin/tests
