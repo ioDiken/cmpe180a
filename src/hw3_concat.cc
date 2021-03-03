@@ -13,5 +13,27 @@
 // wow this is real tough
 std::string mergeStrings(const std::string &a, const std::string &b)
 {
-    return a+b;
+    static std::string s;
+    std::string tmp_a,tmp_b;
+    
+    if (a.length())
+    {
+        s += a[0];
+        tmp_a = a.substr(1);
+    }
+    if (b.length())
+    {
+        s += b[0];
+        tmp_b = b.substr(1);
+    }
+
+    // if both strings are empty
+    if (!(a.length() | b.length()))
+    {
+        return s;
+    }
+    else
+    {
+        return mergeStrings(tmp_a,tmp_b);
+    }
 }

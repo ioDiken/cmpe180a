@@ -31,5 +31,5 @@ protected:
 
 TEST_F(HW3, different_chars)
 {
-    EXPECT_TRUE(mergeStrings(s1,s2) == "abc12&@") << "Wow how did you fuck this up";
+    EXPECT_TRUE(mergeStrings(s1,s2) == "a1b2c&@") << "Wow how did you fuck this up";
 }
