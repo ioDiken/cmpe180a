@@ -13,7 +13,7 @@
 // wow this is real tough
 std::string mergeStrings(const std::string &a, const std::string &b)
 {
-    static std::string s;
+    std::string s;
     std::string tmp_a,tmp_b;
     
     if (a.length())
@@ -34,6 +34,6 @@ std::string mergeStrings(const std::string &a, const std::string &b)
     }
     else
     {
-        return mergeStrings(tmp_a,tmp_b);
+        return s+mergeStrings(tmp_a,tmp_b);
     }
 }

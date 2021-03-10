@@ -20,8 +20,6 @@ protected:
     
     virtual void SetUp()
     {
-        s1 = "abc";
-        s2 = "12&@";
     }
 
     virtual void TearDown()
@@ -31,5 +29,15 @@ protected:
 
 TEST_F(HW3, different_chars)
 {
+    s1 = "abc";
+    s2 = "12&@";
+
     EXPECT_TRUE(mergeStrings(s1,s2) == "a1b2c&@") << "Wow how did you fuck this up";
+}
+
+TEST_F(HW3, one_blank)
+{
+    s1 = "";
+    s2 = "def";
+    EXPECT_TRUE(mergeStrings(s1,s2) == "def") << "Wow how did you fuck this up";
 }
