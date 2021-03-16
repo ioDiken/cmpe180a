@@ -9,6 +9,7 @@ SHELL = /bin/sh
 
 # includes
 INCV = ./inc
+INCV += $(sort $(dir $(wildcard lib/*/)))
 INCV += /usr/local/include
 
 CC = g++
