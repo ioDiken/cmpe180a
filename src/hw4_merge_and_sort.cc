@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-std::vector<int> mergeAndSort(const std::vector<int> &a, const std::vector<int> &b)
+std::vector<int> mergeVectors(const std::vector<int> &a, const std::vector<int> &b)
 {
     std::vector<int> v;
 

@@ -32,7 +32,7 @@ protected:
 
 TEST_F(HW4, zero_size)
 {
-    v = mergeAndSort(v1,v2);
+    v = mergeVectors(v1,v2);
     EXPECT_TRUE(v.empty());
 }
 
@@ -40,7 +40,18 @@ TEST_F(HW4, one_empty)
 {
     v1.push_back(5);
 
-    v = mergeAndSort(v1,v2);
+    v = mergeVectors(v1,v2);
+
+    EXPECT_EQ(v.size(), 1);
+
+    EXPECT_EQ(v[0], 5) << "Vector not eq";
+}
+
+TEST_F(HW4, second_empty)
+{
+    v2.push_back(5);
+
+    v = mergeVectors(v1,v2);
 
     EXPECT_EQ(v.size(), 1);
 
@@ -58,7 +69,7 @@ TEST_F(HW4, two_vectors)
         v2.push_back(i);
     }
 
-    v = mergeAndSort(v2,v1);
+    v = mergeVectors(v2,v1);
 
     EXPECT_EQ(v.size(), 10);
 

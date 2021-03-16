@@ -11,6 +11,6 @@
 #include <stdint.h>
 #include <vector>
 
-std::vector<int> mergeAndSort(const std::vector<int> &a, const std::vector<int> &b);
+std::vector<int> mergeVectors(const std::vector<int> &a, const std::vector<int> &b);
 
 #endif /* C4E424AA_DF0F_4B42_8A19_52AF00870B8D */
