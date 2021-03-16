@@ -19,6 +19,9 @@ public:
     XYPoint(int xc, int yc) : x(xc), y(yc) {}
     ~XYPoint() = default;
 
+    bool operator<(const XYPoint &p);
+    XYPoint operator+(const XYPoint &p);
+
 };
 
 float distance(XYPoint p1, XYPoint p2);

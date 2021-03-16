@@ -30,3 +30,18 @@ float distance(XYPoint p1, XYPoint p2, XYPoint p3, XYPoint p4, XYPoint p5)
 {
     return distance(p1,p2) + distance(p2,p3,p4,p5);
 }
+
+bool XYPoint::operator<(const XYPoint &p)
+{
+    XYPoint p0 = XYPoint(0,0);
+
+    float d1 = distance(p0,*this);
+    float d2 = distance(p0,p);
+
+    return (d1 < d2) ? true : false;
+}
+
+XYPoint XYPoint::operator+(const XYPoint &p)
+{
+    return XYPoint(this->x+p.x,this->y+p.y);
+}
