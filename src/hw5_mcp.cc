@@ -11,14 +11,14 @@
 // -----------------------------------------------------------------------------
 // Local Variables
 
-int mcp_errno;
+int mcp_errnoo;
 
 // -----------------------------------------------------------------------------
 // File Multiplier Functions
 
 FileMultiplier::FileMultiplier()
 {
-    mcp_errno = MCP_ERR_NO_ERROR;
+    mcp_errnoo = MCP_ERR_NO_ERROR;
 }
 
 int FileMultiplier::copy(const std::string& source)
@@ -51,7 +51,7 @@ int FileMultiplier::paste(const std::string& destination)
 
 void FileMultiplier::print_err()
 {
-    switch(mcp_errno)
+    switch(mcp_errnoo)
     {
         case MCP_ERR_SOURCE_FILE_EMPTY:
             std::cerr << "MCP ERR: Source file is empty" << std::endl;
@@ -77,7 +77,7 @@ bool FileMultiplier::check_src(const std::string& file)
 
     if (!f)
     {
-        mcp_errno = MCP_ERR_SOURCE_FILE_DNE;
+        mcp_errnoo = MCP_ERR_SOURCE_FILE_DNE;
         ret_val = false;
     }
 
@@ -92,7 +92,7 @@ bool FileMultiplier::check_dst(const std::string& file)
 
     if (f)
     {
-        mcp_errno = MCP_ERR_DEST_FILE_EXISTS;
+        mcp_errnoo = MCP_ERR_DEST_FILE_EXISTS;
         ret_val = false;
     }
 
