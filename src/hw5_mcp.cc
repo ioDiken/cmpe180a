@@ -6,6 +6,7 @@
  */
 
 #include "hw5_mcp.h"
+#include <iostream>
 
 // -----------------------------------------------------------------------------
 // Local Variables
@@ -14,6 +15,11 @@ int mcp_errno;
 
 // -----------------------------------------------------------------------------
 // File Multiplier Functions
+
+FileMultiplier::FileMultiplier()
+{
+    mcp_errno = MCP_ERR_NO_ERROR;
+}
 
 int FileMultiplier::copy(const std::string& source)
 {
@@ -41,6 +47,27 @@ int FileMultiplier::paste(const std::string& destination)
     }
 
     return ret_val;
+}
+
+void FileMultiplier::print_err()
+{
+    switch(mcp_errno)
+    {
+        case MCP_ERR_SOURCE_FILE_EMPTY:
+            std::cerr << "MCP ERR: Source file is empty" << std::endl;
+            break;
+        
+        case MCP_ERR_SOURCE_FILE_DNE:
+            std::cerr << "MCP ERR: Source file does not exist" << std::endl;
+            break;
+        
+        case MCP_ERR_DEST_FILE_EXISTS:
+            std::cerr << "MCP ERR: Desination file does exists" << std::endl;
+            break;
+        
+        default:
+            break;
+    }
 }
 
 bool FileMultiplier::check_src(const std::string& file)

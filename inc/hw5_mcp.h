@@ -14,6 +14,7 @@
 #include <vector>
 #include <fstream>
 
+#define MCP_ERR_NO_ERROR                    (0)
 #define MCP_ERR_SOURCE_FILE_EMPTY           (-2)
 #define MCP_ERR_SOURCE_FILE_DNE             (-3)
 #define MCP_ERR_DEST_FILE_EXISTS            (-4)
@@ -23,11 +24,13 @@ extern int mcp_errno;
 class FileMultiplier
 {
 public:
-    FileMultiplier() {};
+    FileMultiplier();
     ~FileMultiplier() = default;
 
     int copy(const std::string& source);
     int paste(const std::string& destination);
+
+    void print_err();
 
 private:
     std::ifstream src;
