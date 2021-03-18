@@ -1,17 +1,132 @@
 /**
  * @file main.cpp
  * @brief Executible to copy a file to X targets
+ * 
+ * Note:
+ *   This looks rather messy as I implemented it using a separate library
+ *   that I included in the main. This is rather messy to include in a single
+ *   source file, but oh well?
  */
 
 #include <stdint.h>
+#include <stdbool.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <fstream>
 #include <iostream>
-
-#include "hw5_mcp.h"
 
 // -----------------------------------------------------------------------------
 // Global Vars
-std::string source;
-std::vector<std::string> destinations;
+
+std::string source_file;
+std::vector<std::string> destination_files;
+
+int mcp_errno;
+
+// -----------------------------------------------------------------------------
+// Macro Variables
+
+#define MCP_ERR_NO_ERROR                    (0)
+#define MCP_ERR_SOURCE_FILE_EMPTY           (-2)
+#define MCP_ERR_SOURCE_FILE_DNE             (-3)
+#define MCP_ERR_DEST_FILE_EXISTS            (-4)
+
+// -----------------------------------------------------------------------------
+// File Multiplier Class
+
+class FileMultiplier
+{
+public:
+    FileMultiplier()
+    {
+        mcp_errno = MCP_ERR_NO_ERROR;
+    }
+
+    ~FileMultiplier() = default;
+
+    int copy(const std::string& source)
+    {
+        int ret_val = -1;
+
+        if (check_src(source))
+        {
+            ret_val = 0;
+            src = std::ifstream(source.c_str(), std::fstream::in);
+        }
+
+        return ret_val;
+    }
+
+
+    int paste(const std::string& destination)
+    {
+        int ret_val = -1;
+
+        if (check_dst(destination))
+        {
+            ret_val = 0;
+
+            std::ofstream dst(destination.c_str());
+            dst << src.rdbuf();
+        }
+
+        return ret_val;
+    }
+
+    void print_err()
+    {
+        switch(mcp_errno)
+        {
+            case MCP_ERR_SOURCE_FILE_EMPTY:
+                std::cerr << "MCP ERR: Source file is empty" << std::endl;
+                break;
+            
+            case MCP_ERR_SOURCE_FILE_DNE:
+                std::cerr << "MCP ERR: Source file does not exist" << std::endl;
+                break;
+            
+            case MCP_ERR_DEST_FILE_EXISTS:
+                std::cerr << "MCP ERR: Desination file does exists" << std::endl;
+                break;
+            
+            default:
+                break;
+        }
+    }
+
+private:
+    std::ifstream src;
+
+    bool check_src(const std::string& file)
+    {
+        bool ret_val = true;
+        std::ifstream f(file.c_str(), std::fstream::in);
+
+        if (!f)
+        {
+            mcp_errno = MCP_ERR_SOURCE_FILE_DNE;
+            ret_val = false;
+        }
+
+        return ret_val;
+    }
+
+    bool check_dst(const std::string& file)
+    {
+        bool ret_val = true;
+
+        std::ifstream f(file.c_str(), std::fstream::in);
+
+        if (f)
+        {
+            mcp_errno = MCP_ERR_DEST_FILE_EXISTS;
+            ret_val = false;
+        }
+
+        return ret_val;
+    }
+};
 
 static bool basic_arg_parser(int argc, char *argv[])
 {
@@ -29,12 +144,21 @@ static bool basic_arg_parser(int argc, char *argv[])
         {
             if ("-t" == std::string(argv[i]))
             {
-                destinations.push_back(std::string(argv[i+1]));
+                if (std::find(destination_files.begin(), destination_files.end(), std::string(argv[i+1])) != destination_files.end())
+                {
+                    std::cerr << "MCP ERR: Cannot repeat desination files." << std::endl;
+                    ret_val = false;
+                    break;
+                }
+                else
+                {
+                    destination_files.push_back(std::string(argv[i+1]));
+                }
             }
             else if ("-s" == std::string(argv[i]))
             {
                 // If source already assigned
-                if (source != "")
+                if (source_file != "")
                 {
                     std::cerr << "MCP ERR: Cannot have multiple source files" << std::endl;
                     ret_val = false;
@@ -42,7 +166,7 @@ static bool basic_arg_parser(int argc, char *argv[])
                 }
                 else
                 {
-                    source = std::string(argv[i+1]);
+                    source_file = std::string(argv[i+1]);
                 }
             }
             else
@@ -72,8 +196,8 @@ static void print_help()
 int main(int argc, char *argv[])
 {
     // Clear global vars
-    source = "";
-    destinations.clear();    
+    source_file = "";
+    destination_files.clear();    
 
     if (!basic_arg_parser(argc,argv))
     {
@@ -83,18 +207,21 @@ int main(int argc, char *argv[])
     {
         FileMultiplier fm;
 
-        if (0 != fm.copy(source))
+        if (0 != fm.copy(source_file))
         {
             fm.print_err();
         }
-
-        for (auto e : destinations)
+        else
         {
-            if (0 != fm.paste(e))
+            for (auto e : destination_files)
             {
-                fm.print_err();
+                if (0 != fm.paste(e))
+                {
+                    fm.print_err();
+                }
             }
         }
+
     }
 
     return 0;
