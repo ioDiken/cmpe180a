@@ -9,7 +9,11 @@
 #define CB8D74D0_8BAA_4993_82F5_628EB6286889
 
 #include <string>
+#include <vector>
 
-std::string mergeStrings(const std::string &a, const std::string &b);
+using namespace std;
+
+string mergeStrings(const string &a, const string &b);
+string mergeStrings(const vector<string> &v);
 
 #endif /* CB8D74D0_8BAA_4993_82F5_628EB6286889 */

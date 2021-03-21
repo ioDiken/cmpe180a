@@ -37,3 +37,29 @@ std::string mergeStrings(const std::string &a, const std::string &b)
         return s+mergeStrings(tmp_a,tmp_b);
     }
 }
+
+string mergeStrings(const vector<string> &v)
+{
+    string s;
+    int i = 0;
+    bool valid;
+
+    do
+    {
+        valid = false;
+
+        for(int vi = 0; vi < v.size(); vi++)
+        {
+            if (v[vi].length() > i)
+            {
+                valid = true;
+                s += v[vi][i];
+            }
+        }
+
+        i++;
+
+    } while(valid);
+
+    return s;
+}

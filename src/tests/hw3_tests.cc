@@ -27,7 +27,7 @@ protected:
     }
 };
 
-TEST_F(HW3, different_chars)
+TEST_F(HW3, different_chars_2)
 {
     s1 = "abc";
     s2 = "12&@";
@@ -40,4 +40,25 @@ TEST_F(HW3, one_blank)
     s1 = "";
     s2 = "def";
     EXPECT_TRUE(mergeStrings(s1,s2) == "def") << "Wow how did you fuck this up";
+}
+
+TEST_F(HW3, one_off_v)
+{
+    vector<string> v = {"abc","AB","123"};
+
+    EXPECT_TRUE(mergeStrings(v) == "aA1bB2c3") << "Wow how did you fuck this up";
+}
+
+TEST_F(HW3, one_empty_v)
+{
+    vector<string> v = {"abc","","123"};
+
+    EXPECT_TRUE(mergeStrings(v) == "a1b2c3") << "Wow how did you fuck this up";
+}
+
+TEST_F(HW3, two_empty_v)
+{
+    vector<string> v = {"","","123"};
+
+    EXPECT_TRUE(mergeStrings(v) == "123") << "Wow how did you fuck this up";
 }
