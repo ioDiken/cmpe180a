@@ -9,7 +9,8 @@ SHELL = /bin/sh
 
 # includes
 INCV = ./inc
-INCV += $(sort $(dir $(wildcard lib/*/)))
+INCV += $(dir $(wildcard inc/*/))
+INCV += $(dir $(wildcard lib/*/))
 INCV += /usr/local/include
 
 CC = g++
@@ -20,13 +21,13 @@ LDFLAGS += $(foreach name, $(LIBS), -l $(name))
 
 # libs
 LIB_PATH = ./lib
-CPP_LIB_SRC = $(realpath $(wildcard $(LIB_PATH)/*.cc)) # match *.cpp
+CPP_LIB_SRC = $(wildcard $(LIB_PATH)/*.cc) # match *.cpp
 
 # gtest fixtures
 SRC_PATH = ./src
 SRC_TESTS_PATH = $(SRC_PATH)/tests
-CPP_LIB_SRC += $(realpath $(wildcard $(SRC_PATH)/*.cc)) # match *.cpp
-CPP_LIB_SRC += $(realpath $(wildcard $(SRC_TESTS_PATH)/*.cc)) # match *.cpp
+CPP_LIB_SRC += $(wildcard $(SRC_PATH)/*/*.cc)
+CPP_LIB_SRC += $(wildcard $(SRC_PATH)/*.cc) # match *.cpp
 
 BUILD_PATH = ./build
 TARGET = ./bin/tests
