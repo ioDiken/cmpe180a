@@ -11,6 +11,29 @@
 
 #include "asteroid_hits.h"
 
+// -----------------------------------------------------------------------------
+// Big O Analysis
+
+/**
+ * Time Complexity:
+ * 
+ * O(n+m)
+ * 
+ * where "n" represents the length of the input vector
+ * where "m" represents the number of Asteroids moving left
+ */
+
+/**
+ * Space Complexity:
+ * 
+ * O(8m+12)
+ * 
+ * where 8 is the size of the asteroid struct
+ * where "m" represents the number of asteroids in the vector which are moving
+ * left. 
+ * where 12 is the 3 int variables in the function
+ */
+
 /**
  * @brief Simple function to count the number of hits to a space station.
  *        The station is assumed to be on the right, and any asteroid that
