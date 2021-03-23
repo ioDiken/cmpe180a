@@ -1,14 +1,11 @@
 /**
  * @file asteroid.h
  * @author Nicolas Diken (011280893)
- * @brief Asteroid hit counter
+ * @brief Header as provided in class
  */
 
-#ifndef CCB9B6CE_4C66_409C_BF2D_D9462B63153A
-#define CCB9B6CE_4C66_409C_BF2D_D9462B63153A
-
-#include <stdint.h>
-#include <vector>
+#ifndef A243AB0C_5C16_4694_9AFB_93D5BB329A3D
+#define A243AB0C_5C16_4694_9AFB_93D5BB329A3D
 
 enum Direction 
 {
@@ -25,7 +22,4 @@ struct Asteroid
     Direction d;
 };
 
-int countHits(std::vector<Asteroid> a);
-
-
-#endif /* CCB9B6CE_4C66_409C_BF2D_D9462B63153A */
+#endif /* A243AB0C_5C16_4694_9AFB_93D5BB329A3D */

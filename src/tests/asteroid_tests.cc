@@ -8,7 +8,7 @@
 
 #include "global.h"
 #include <iostream>
-#include "asteroid.h"
+#include "asteroid_hits.h"
 
 class ASTERIOD : public ::testing::Test
 {
@@ -93,4 +93,17 @@ TEST_F(ASTERIOD, late_carry)
         push_ast(i,left);
 
     EXPECT_EQ(1,countHits(ast_v)) << "Big right push through";
+}
+
+TEST_F(ASTERIOD, invalid_masses)
+{
+    push_ast(5,right);
+    push_ast(0,right);
+    
+    EXPECT_EQ(1,countHits(ast_v)) << "One hit + zero masss";
+
+    push_ast(-1,right);
+    push_ast(5,right);
+
+    EXPECT_EQ(-1,countHits(ast_v)) << "invalid mass";
 }

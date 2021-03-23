@@ -9,7 +9,7 @@
 #include <vector>
 #include <list>
 
-#include "asteroid.h"
+#include "asteroid_hits.h"
 
 /**
  * @brief Simple function to count the number of hits to a space station.
@@ -28,6 +28,19 @@ int countHits(std::vector<Asteroid> a)
 
     for (int i = a.size()-1; i >= 0 ; i--)
     {
+        // if any negatives fail out
+        if (0 > a[i].m)
+        {
+            count = -1;
+            break;
+        }
+
+        // skip entry if mass is 0
+        if (0 == a[i].m)
+        {
+            continue;
+        }
+
         // if there are any asteroids moving left, check front
         if (right == a[i].d)
         {
