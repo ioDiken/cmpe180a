@@ -11,7 +11,7 @@
 #include <vector>
 #include "Asteroid.h"
 
-int32_t countHits(std::vector<Asteroid> a);
+int32_t countHits(const std::vector<Asteroid> &a);
 
 
 #endif /* CCB9B6CE_4C66_409C_BF2D_D9462B63153A */

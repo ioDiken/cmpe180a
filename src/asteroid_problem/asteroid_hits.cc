@@ -26,12 +26,10 @@
 /**
  * Space Complexity:
  * 
- * O(8m+12)
+ * O(m)
  * 
- * where 8 is the size of the asteroid struct
  * where "m" represents the number of asteroids in the vector which are moving
  * left. 
- * where 12 is the 3 int variables in the function
  */
 
 /**
@@ -43,7 +41,7 @@
  *  
  * @return int The number of asteroids that hit the space station
  */
-int countHits(std::vector<Asteroid> a)
+int countHits(const std::vector<Asteroid> &a)
 {
     int count = 0;
     std::list<Asteroid> ast;
