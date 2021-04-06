@@ -39,6 +39,7 @@ TEST_F(HW7, print)
     BigInt bi(vi);
     std::cout << "Bi: " << bi << std::endl;
 
+    vc.push_back('0');
     vc.push_back('2');
     vc.push_back('0');
     BigInt bc(vc);
@@ -50,7 +51,7 @@ TEST_F(HW7, print)
     std::cout << "Ba: " << ba << std::endl;
 }
 
-TEST_F(HW7, equivalent)
+TEST_F(HW7, eq)
 {
     vi.push_back(2);
     vi.push_back(0);
@@ -66,4 +67,62 @@ TEST_F(HW7, equivalent)
     EXPECT_TRUE(bi == bc);
     EXPECT_TRUE(bi == ba);
     EXPECT_TRUE(bc == ba);
+}
+
+TEST_F(HW7, gt_eq)
+{
+    vi.push_back(2);
+    vi.push_back(0);
+    BigInt bi(vi);
+    vc.push_back('2');
+    vc.push_back('0');
+    BigInt bc(vc);
+    ca[0] = '0';
+    ca[1] = '2';
+    ca[2] = '1';
+    BigInt ba(ca, 3);
+
+    EXPECT_TRUE(bi >= bc);
+    EXPECT_TRUE(ba >= bi);
+    EXPECT_FALSE(bi >= ba);
+}
+
+TEST_F(HW7, lt_eq)
+{
+    vi.push_back(2);
+    vi.push_back(0);
+    BigInt bi(vi);
+    vc.push_back('2');
+    vc.push_back('0');
+    BigInt bc(vc);
+    ca[0] = '0';
+    ca[1] = '2';
+    ca[2] = '1';
+    BigInt ba(ca, 3);
+
+    EXPECT_TRUE(bi <= bc);
+    EXPECT_FALSE(ba <= bi);
+    EXPECT_TRUE(bi <= ba);
+}
+
+TEST_F(HW7, multiply)
+{
+    vi.push_back(1);
+    vi.push_back(2);
+    vi.push_back(3);
+    vi.push_back(4);
+    vi.push_back(1);
+    BigInt ba(vi);
+    vi.clear();
+    vi.push_back(1);
+    vi.push_back(8);
+    vi.push_back(4);
+    BigInt bb(vi);
+
+    std::cout << ba << std::endl;
+    std::cout << bb << std::endl;
+    BigInt b = ba*bb;
+    std::cout << b << std::endl;
+
+    // EXPECT_TRUE(bc == (ba * bb));
 }

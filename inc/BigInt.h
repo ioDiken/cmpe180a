@@ -18,10 +18,10 @@ class BigInt
 {
 public:
     BigInt(const std::vector<int> &v);
+    BigInt(const std::vector<int> &v, bool lsb_first);
     BigInt(const std::vector<char> &v);
     BigInt(const char *c, uint64_t len);
     ~BigInt() = default;
-
 
     BigInt& operator++(); // prefix
     BigInt operator++(int); // postfix
@@ -29,13 +29,17 @@ public:
     BigInt operator--(int); // postfix
     
     friend bool operator==(const BigInt& b1, const BigInt& b2);
+    friend bool operator>=(const BigInt& b1, const BigInt& b2);
+    friend bool operator<=(const BigInt& b1, const BigInt& b2);
+    friend BigInt operator*(const BigInt& b1, const BigInt& b2);
     friend std::ostream& operator<<(std::ostream& os, const BigInt& dt);
 
 private:
 
     // stored in reverse order. LSB is index 0
     // stored as Decimal values
-    std::vector<char> num;
+    std::vector<uint8_t> num;
+    bool is_num_neg;
 
 };
 
@@ -44,7 +48,6 @@ private:
 -
 *
 !
-==
 >=
 >
 <=
