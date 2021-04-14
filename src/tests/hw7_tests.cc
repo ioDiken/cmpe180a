@@ -128,7 +128,6 @@ TEST_F(HW7, lt_eq)
     ca[2] = '1';
     BigInt ba(ca, 3);
 
-    EXPECT_TRUE(baa <= baaa);
     EXPECT_TRUE(bi <= bc);
     EXPECT_FALSE(ba <= bi);
     EXPECT_FALSE(ba < bi);

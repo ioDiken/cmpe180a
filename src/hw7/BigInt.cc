@@ -309,7 +309,7 @@ bool operator<=(const BigInt& b1, const BigInt& b2)
         num1 = (b1.num.size() > i) ? b1.num[i] : 0;
         num2 = (b2.num.size() > i) ? b2.num[i] : 0;
 
-        if ((num1 == num2)
+        if (num1 == num2)
         {
             continue;
         }
