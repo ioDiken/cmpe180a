@@ -30,6 +30,32 @@ protected:
     virtual void TearDown()
     {
     }
+
+    BigInt create_BI(uint64_t val)
+    {
+        return create_BI(val,false);
+    }
+
+    BigInt create_BI(uint64_t val, bool is_neg)
+    {
+        std::vector<int> v;
+
+        do
+        {
+            v.push_back(val % 10);
+        } while((val/=10) > 0);
+
+        if (is_neg)
+        {
+            v.push_back('-');
+        }
+        else
+        {
+            v.push_back(0);
+        }
+
+        return BigInt(v,true);
+    }
 };
 
 TEST_F(HW7, print)
@@ -84,7 +110,9 @@ TEST_F(HW7, gt_eq)
 
     EXPECT_TRUE(bi >= bc);
     EXPECT_TRUE(ba >= bi);
+    EXPECT_TRUE(ba > bi);
     EXPECT_FALSE(bi >= ba);
+    EXPECT_FALSE(bi > ba);
 }
 
 TEST_F(HW7, lt_eq)
@@ -100,29 +128,52 @@ TEST_F(HW7, lt_eq)
     ca[2] = '1';
     BigInt ba(ca, 3);
 
+    EXPECT_TRUE(baa <= baaa);
     EXPECT_TRUE(bi <= bc);
     EXPECT_FALSE(ba <= bi);
+    EXPECT_FALSE(ba < bi);
     EXPECT_TRUE(bi <= ba);
+    EXPECT_TRUE(bi < ba);
 }
 
 TEST_F(HW7, multiply)
 {
-    vi.push_back(1);
-    vi.push_back(2);
-    vi.push_back(3);
-    vi.push_back(4);
-    vi.push_back(1);
-    BigInt ba(vi);
-    vi.clear();
-    vi.push_back(1);
-    vi.push_back(8);
-    vi.push_back(4);
-    BigInt bb(vi);
+    auto ba = create_BI(12341u);
+    auto bb = create_BI(184u);
+    auto bc = create_BI(2270744u);
+    auto b_zero = create_BI(0);
 
-    std::cout << ba << std::endl;
-    std::cout << bb << std::endl;
-    BigInt b = ba*bb;
-    std::cout << b << std::endl;
+    EXPECT_TRUE(bc == (ba * bb));
 
-    // EXPECT_TRUE(bc == (ba * bb));
+    EXPECT_TRUE(b_zero == (ba * b_zero));
+}
+
+TEST_F(HW7, addition)
+{
+    auto ba = create_BI(999u);
+    auto bb = create_BI(999u);
+    auto b1k = create_BI(1000u);
+    auto bc = create_BI(1998u);
+    auto b_zero = create_BI(0);
+
+    EXPECT_TRUE(bc == (ba + bb));
+    EXPECT_TRUE(ba == (ba + b_zero));
+    EXPECT_TRUE(bb == ba++);
+    EXPECT_TRUE(b1k == ba);
+    EXPECT_TRUE(++bb == b1k);
+}
+
+TEST_F(HW7, subtraction)
+{
+    auto ba = create_BI(1000u);
+    auto bb = create_BI(1u);
+    auto bc = create_BI(999u);
+    auto b_zero = create_BI(0);
+
+    std::cout << (ba - bb) << std::endl;
+    EXPECT_TRUE(bc == (ba - bb));
+    EXPECT_TRUE(ba == (ba - b_zero));
+    // EXPECT_TRUE(bb == ba++);
+    // EXPECT_TRUE(b1k == ba);
+    // EXPECT_TRUE(++bb == b1k);
 }
